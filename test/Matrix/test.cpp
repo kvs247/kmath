@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
+#include <kmath/Matrix/Matrix.hpp>
 #include <stdexcept>
-
-#include "Matrix.hpp"
 
 // constructors
 TEST(Matrix, CanCreateValidMatrix2D)

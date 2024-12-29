@@ -2,11 +2,11 @@
 #include <initializer_list>
 #include <iomanip>
 #include <iostream>
+#include <kmath/Matrix/Matrix.hpp>
 #include <span>
 #include <stdexcept>
 #include <vector>
 
-#include "Matrix.hpp"
 #include "config.hpp"
 
 // constructors
@@ -78,12 +78,13 @@ Vector2D Matrix::getCols() const
 
 std::vector<double> Matrix::getData() const { return data; }
 
-std::vector<double> Matrix::getDiagonal() const {
+std::vector<double> Matrix::getDiagonal() const
+{
   if (!this->isSquare())
   {
     throw std::invalid_argument("Cannot get diagonal of non-square matrix");
   }
-  
+
   std::vector<double> res(nCols);
   for (size_t i = 0; i < nCols; ++i)
   {
