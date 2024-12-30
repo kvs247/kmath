@@ -3,6 +3,7 @@ project(kmath)
 
 add_library(kmath
   src/Matrix/Matrix.cpp
+  src/Matrix/Vector.cpp
 )
 
 target_include_directories(kmath

@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 // constructors
-TEST(Matrix, CanCreateValidMatrix2D)
+TEST(Matrix, CanCreateMatrixFromRows)
 {
   Matrix m({{1, 2}, {3, 4}, {5, 6}});
 
@@ -26,9 +26,7 @@ TEST(Matrix, CanCreateValidMatrix2D)
   EXPECT_EQ(m.getCols(), expectedCols);
 }
 
-TEST(Matrix, ThrowsOnCreateInvalidMatrix2D) { EXPECT_THROW(Matrix m({{1, 2}, {3, 4, 5}}), std::invalid_argument); }
-
-TEST(Matrix, CanCreateValidMatrix1D)
+TEST(Matrix, CanCreateMatrixFromDataAndShape)
 {
   Matrix m({1, 2, 3, 4, 5, 6}, 3, 2);
 
@@ -50,6 +48,8 @@ TEST(Matrix, CanCreateValidMatrix1D)
   EXPECT_EQ(m.getRows(), expectedRows);
   EXPECT_EQ(m.getCols(), expectedCols);
 }
+
+TEST(Matrix, ThrowOnCreateInvalidMatrix) { EXPECT_THROW(Matrix m({{1, 2}, {3, 4, 5}}), std::invalid_argument); }
 
 TEST(Matrix, ThrowsOnCreateInvalidMatrix1D) { EXPECT_THROW(Matrix m({1, 2, 3, 4, 5}, 3, 2), std::invalid_argument); }
 

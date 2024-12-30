@@ -9,10 +9,19 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(matrix_test
-  test/Matrix/test.cpp
+  test/Matrix/testMatrix.cpp
+)
+target_link_libraries(matrix_test
+  PRIVATE
+  kmath
+  gtest
+  gtest_main
 )
 
-target_link_libraries(matrix_test
+add_executable(vector_test
+  test/Matrix/testVector.cpp
+)
+target_link_libraries(vector_test
   PRIVATE
   kmath
   gtest
@@ -21,3 +30,4 @@ target_link_libraries(matrix_test
 
 include(GoogleTest)
 gtest_discover_tests(matrix_test)
+gtest_discover_tests(vector_test)
