@@ -43,8 +43,8 @@ public:
   Matrix &operator*=(const Matrix &);
   Matrix operator*(const Matrix &) const;
 
-private:
+protected:
+  std::vector<double> data;
   size_t nRows = 0;
   size_t nCols = 0;
-  std::vector<double> data;
 };

@@ -15,6 +15,9 @@ public:
 
   double at(size_t i) const { return Matrix::at(i, 1); }
 
+  Vector &normalize();
+  Vector normalize() const;
+
 private:
   const size_t nCols = 1;
 };
