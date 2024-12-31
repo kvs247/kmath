@@ -76,10 +76,8 @@ TEST(Matrix, IsSquare)
   Matrix m1({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
   Matrix m2({{1, 2, 3}, {4, 5, 6}});
 
-  EXPECT_TRUE(Matrix::isSquare(m1));
   EXPECT_TRUE(m1.isSquare());
 
-  EXPECT_FALSE(Matrix::isSquare(m2));
   EXPECT_FALSE(m2.isSquare());
 }
 
@@ -105,14 +103,14 @@ TEST(Matrix, MakeIdentityMatrix)
 
 TEST(Matrix, AtWithValidInput)
 {
-  Matrix m1({{1, 2}, {3, 4}, {5, 6}});
+  Matrix m({{1, 2}, {3, 4}, {5, 6}});
 
-  EXPECT_EQ(m1.at(0, 0), 1);
-  EXPECT_EQ(m1.at(1, 0), 3);
-  EXPECT_EQ(m1.at(2, 0), 5);
-  EXPECT_EQ(m1.at(0, 1), 2);
-  EXPECT_EQ(m1.at(1, 1), 4);
-  EXPECT_EQ(m1.at(2, 1), 6);
+  EXPECT_EQ(m.at(0, 0), 1);
+  EXPECT_EQ(m.at(1, 0), 3);
+  EXPECT_EQ(m.at(2, 0), 5);
+  EXPECT_EQ(m.at(0, 1), 2);
+  EXPECT_EQ(m.at(1, 1), 4);
+  EXPECT_EQ(m.at(2, 1), 6);
 }
 
 TEST(Matrix, AtWithInvalidInput)

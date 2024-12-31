@@ -13,7 +13,7 @@ public:
 
   std::vector<double> getDiagonal() const = delete;
 
-  double at(size_t i) const { return Matrix::at(i, 1); }
+  double at(size_t i) const { return Matrix::at(i, 0); }
 
   Vector &normalize();
   Vector normalize() const;

@@ -93,7 +93,7 @@ std::vector<double> Matrix::getDiagonal() const
   return res;
 }
 
-bool Matrix::isSquare(const Matrix &m) { return m.getNRows() == m.getNCols(); }
+bool Matrix::isSquare() const { return this->nRows == this->nCols; }
 
 bool Matrix::isSameDimension(const Matrix &m1, const Matrix &m2)
 {

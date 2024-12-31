@@ -23,8 +23,7 @@ public:
   std::vector<double> getData() const;
   std::vector<double> getDiagonal() const;
 
-  static bool isSquare(const Matrix &);
-  bool isSquare() const { return isSquare(*this); }
+  bool isSquare() const;
 
   static bool isSameDimension(const Matrix &, const Matrix &);
   static Matrix makeIdentityMatrix(const size_t n);
