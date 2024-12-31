@@ -24,3 +24,19 @@ Vector &Vector::normalize()
 }
 
 Vector Vector::normalize() const { return Vector(*this).normalize(); }
+
+double Vector::innerProduct(Vector &other)
+{
+  if (this->nRows != other.nRows)
+  {
+    throw std::invalid_argument("Vectors of inner product must have equal length");
+  }
+
+  double res = 0.0;
+  for (size_t i = 0; i < this->nRows; ++i)
+  {
+    res += this->data[i] * other.data[i];
+  }
+
+  return res;
+}

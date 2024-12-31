@@ -18,6 +18,8 @@ public:
   Vector &normalize();
   Vector normalize() const;
 
+  double innerProduct(Vector &);
+
 private:
   const size_t nCols = 1;
 };

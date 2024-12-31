@@ -41,3 +41,21 @@ TEST(Vector, NormalizeZeroVector)
 
   EXPECT_EQ(v.normalize(), v);
 }
+
+TEST(Vector, InnerProduct)
+{
+  Vector v1({0.5, 1.2, -3.14});
+  Vector v2({0, 0.8, 9.8});
+
+  double expectedResult = -29.812;
+
+  EXPECT_EQ(v1.innerProduct(v2), expectedResult);
+}
+
+TEST(Vector, InnerProductInvalidInput)
+{
+  Vector v1({0.5, 1.2, -3.14});
+  Vector v2({0, 0.8});
+
+  EXPECT_THROW(v1.innerProduct(v2), std::invalid_argument);
+}
