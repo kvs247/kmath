@@ -32,7 +32,20 @@ TEST(Vector, Normalize)
   const double n = kmath::sqrt(1.0 + 4.0 + 9.0);
   Vector expected({1.0 / n, -2.0 / n, 3.0 / n});
 
-  EXPECT_EQ(v.normalize(), expected);
+  {
+    auto vNonConst = v;
+
+    EXPECT_EQ(vNonConst.normalize(), expected);
+    EXPECT_NE(vNonConst, v);
+  }
+
+  {
+    const auto vConst = v;
+    const auto vNorm = vConst.normalize();
+
+    EXPECT_EQ(vNorm, expected);
+    EXPECT_EQ(vConst, v);
+  }
 }
 
 TEST(Vector, NormalizeZeroVector)

@@ -206,6 +206,8 @@ bool Matrix::operator==(const Matrix &other) const
   return true;
 };
 
+bool Matrix::operator!=(const Matrix &other) const { return !(*this == other); }
+
 Matrix &Matrix::operator+=(const Matrix &other)
 {
   if (!Matrix::isSameDimension(*this, other))

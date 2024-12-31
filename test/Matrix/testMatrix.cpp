@@ -121,22 +121,25 @@ TEST(Matrix, AtWithInvalidInput)
   EXPECT_THROW(m1.at(3, 0), std::out_of_range);
 }
 
-TEST(Matrix, InPlaceTranspose)
+TEST(Matrix, Transpose)
 {
   Matrix m({{1, 2, 3}, {4, 5, 6}});
   Matrix mt({{1, 4}, {2, 5}, {3, 6}});
 
-  m.transpose();
+  {
+    auto mNonConst = m;
 
-  EXPECT_EQ(m, mt);
-}
+    EXPECT_EQ(mNonConst.transpose(), mt);
+    EXPECT_NE(mNonConst, m);
+  }
 
-TEST(Matrix, ConstTranspose)
-{
-  Matrix m({{1, 2, 3}, {4, 5, 6}});
-  Matrix mt({{1, 4}, {2, 5}, {3, 6}});
+  {
+    const auto mConst = m;
+    auto mTranspose = mConst.transpose();
 
-  EXPECT_EQ(m.transpose(), mt);
+    EXPECT_EQ(mTranspose, mt);
+    EXPECT_EQ(mConst, m);
+  }
 }
 
 // operators
@@ -160,6 +163,18 @@ TEST(Matrix, MatrixEquality)
   EXPECT_TRUE(m1 == m2);
   EXPECT_FALSE(m1 == m3);
   EXPECT_FALSE(m1 == m4);
+}
+
+TEST(Matrix, MatrixInequality)
+{
+  Matrix m1({{1, 2}, {3, 4}, {5, 6}});
+  Matrix m2({{1, 2}, {3, 4}, {5, 6}});
+  Matrix m3({{1, 0}, {0, 1}});
+  Matrix m4({{1, 2, 3}, {4, 5, 6}});
+
+  EXPECT_FALSE(m1 != m2);
+  EXPECT_TRUE(m1 != m3);
+  EXPECT_TRUE(m1 != m4);
 }
 
 TEST(Matrix, CanPlusEqualTwoMatrices)
