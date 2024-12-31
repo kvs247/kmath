@@ -72,3 +72,34 @@ TEST(Vector, InnerProductInvalidInput)
 
   EXPECT_THROW(v1.innerProduct(v2), std::invalid_argument);
 }
+
+TEST(Vector, Projection)
+{
+  Vector v({1.0, -2.0, 2.0});
+  Vector u({4.0, 0.0, -3.0});
+
+  Vector expected({-8.0 / 25, 0.0, 6.0 / 25});
+
+  {
+    auto vNonConst = v;
+
+    EXPECT_EQ(vNonConst.proj(u), expected);
+    EXPECT_NE(vNonConst, v);
+  }
+
+  {
+    const auto vConst = v;
+    auto vProj = vConst.proj(u);
+
+    EXPECT_EQ(vProj, expected);
+    EXPECT_EQ(vConst, v);
+  }
+}
+
+TEST(Vector, ProjectionOntoZero)
+{
+  Vector v({3, 4});
+  Vector u({0, 0});
+
+  EXPECT_EQ(v.proj(u), u);
+}

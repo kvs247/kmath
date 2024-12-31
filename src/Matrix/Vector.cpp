@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <kmath/Matrix/Vector.hpp>
 #include <kmath/Ops.hpp>
 #include <numeric>
@@ -25,9 +26,9 @@ Vector &Vector::normalize()
 
 Vector Vector::normalize() const { return Vector(*this).normalize(); }
 
-double Vector::innerProduct(Vector &other)
+double Vector::innerProduct(const Vector &u) const
 {
-  if (this->nRows != other.nRows)
+  if (this->nRows != u.nRows)
   {
     throw std::invalid_argument("Vectors of inner product must have equal length");
   }
@@ -35,8 +36,32 @@ double Vector::innerProduct(Vector &other)
   double res = 0.0;
   for (size_t i = 0; i < this->nRows; ++i)
   {
-    res += this->data[i] * other.data[i];
+    res += this->data[i] * u.data[i];
   }
 
   return res;
 }
+
+Vector &Vector::proj(const Vector &u)
+{
+  const auto uu = u.innerProduct(u); // throws exception if Vs are unequal length
+  if (uu == 0)
+  {
+    this->data = std::vector(u.nRows, 0.0);
+    return *this;
+  }
+
+  const auto uv = this->innerProduct(u);
+
+  std::transform(u.data.cbegin(), u.data.cend(), this->data.begin(), [&](double x) { return x * uv / uu; });
+
+  for (auto x : this->data)
+  {
+    std::cout << x << " ";
+  }
+  std::cout << "\n";
+
+  return *this;
+}
+
+Vector Vector::proj(const Vector &u) const { return Vector(*this).proj(u); }

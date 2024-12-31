@@ -18,7 +18,10 @@ public:
   Vector &normalize();
   Vector normalize() const;
 
-  double innerProduct(Vector &);
+  double innerProduct(const Vector &) const;
+
+  Vector &proj(const Vector &);
+  Vector proj(const Vector &) const;
 
 private:
   const size_t nCols = 1;
