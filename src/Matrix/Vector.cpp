@@ -57,12 +57,6 @@ Vector &Vector::proj(const Vector &u)
 
   std::transform(u.data.cbegin(), u.data.cend(), this->data.begin(), [&](double x) { return x * uv / uu; });
 
-  for (auto x : this->data)
-  {
-    std::cout << x << " ";
-  }
-  std::cout << "\n";
-
   return *this;
 }
 
