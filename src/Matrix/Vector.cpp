@@ -4,8 +4,10 @@
 #include <numeric>
 #include <vector>
 
+// constructors
 Vector::Vector(const std::vector<double> &eles) : Matrix(eles, eles.size(), 1) {}
 
+// public methods
 Vector &Vector::normalize()
 {
   double n = kmath::sqrt(
@@ -65,3 +67,26 @@ Vector &Vector::proj(const Vector &u)
 }
 
 Vector Vector::proj(const Vector &u) const { return Vector(*this).proj(u); }
+
+// operators
+Vector &Vector::operator=(const Vector &other)
+{
+  Matrix::operator=(other);
+  return *this;
+}
+
+Vector &Vector::operator+=(const Vector &other)
+{
+  Matrix::operator+=(other);
+  return *this;
+}
+
+Vector Vector::operator+(const Vector &other) const { return Vector(*this) += other; }
+
+Vector &Vector::operator-=(const Vector &other)
+{
+  Matrix::operator-=(other);
+  return *this;
+}
+
+Vector Vector::operator-(const Vector &other) const { return Vector(*this) -= other; }

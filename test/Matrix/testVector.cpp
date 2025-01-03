@@ -103,3 +103,47 @@ TEST(Vector, ProjectionOntoZero)
 
   EXPECT_EQ(v.proj(u), u);
 }
+
+TEST(Vector, PlusReturnsVector)
+{
+  Vector u({0, 1});
+  Vector v({2, 3});
+
+  {
+    auto nonConstU = u;
+    nonConstU += v;
+
+    EXPECT_EQ(nonConstU.getNCols(), 1);
+    EXPECT_EQ(typeid(nonConstU), typeid(Vector));
+  }
+
+  {
+    const auto constU = u;
+    const auto uPlusV = constU + v;
+
+    EXPECT_EQ(uPlusV.getNCols(), 1);
+    EXPECT_EQ(typeid(uPlusV), typeid(Vector));
+  }
+}
+
+TEST(Vector, MinusReturnsVector)
+{
+  Vector u({0, 1});
+  Vector v({2, 3});
+
+  {
+    auto nonConstU = u;
+    nonConstU -= v;
+
+    EXPECT_EQ(nonConstU.getNCols(), 1);
+    EXPECT_EQ(typeid(nonConstU), typeid(Vector));
+  }
+
+  {
+    const auto constU = u;
+    const auto uPlusV = constU - v;
+
+    EXPECT_EQ(uPlusV.getNCols(), 1);
+    EXPECT_EQ(typeid(uPlusV), typeid(Vector));
+  }
+}

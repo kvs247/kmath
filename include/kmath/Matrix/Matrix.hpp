@@ -34,9 +34,9 @@ public:
   Matrix &transpose();
   Matrix transpose() const;
 
-  Matrix &operator=(const Matrix &);
   bool operator==(const Matrix &) const;
   bool operator!=(const Matrix &) const;
+  Matrix &operator=(const Matrix &);
   Matrix &operator+=(const Matrix &);
   Matrix operator+(const Matrix &) const;
   Matrix &operator-=(const Matrix &);

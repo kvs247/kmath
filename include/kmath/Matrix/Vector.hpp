@@ -23,6 +23,11 @@ public:
   Vector &proj(const Vector &);
   Vector proj(const Vector &) const;
 
-private:
-  const size_t nCols = 1;
+  Vector &operator=(const Vector &);
+  Vector &operator+=(const Vector &);
+  Vector operator+(const Vector &) const;
+  Vector &operator-=(const Vector &);
+  Vector operator-(const Vector &) const;
+  Vector &operator*=(const Vector &) = delete;
+  Vector operator*(const Vector &) = delete;
 };

@@ -184,15 +184,6 @@ Matrix Matrix::transpose() const
 }
 
 // operators
-Matrix &Matrix::operator=(const Matrix &other)
-{
-  this->data = other.data;
-  this->nRows = other.nRows;
-  this->nCols = other.nCols;
-
-  return *this;
-}
-
 bool Matrix::operator==(const Matrix &other) const
 {
   if (!isSameDimension(*this, other))
@@ -214,6 +205,15 @@ bool Matrix::operator==(const Matrix &other) const
 
 bool Matrix::operator!=(const Matrix &other) const { return !(*this == other); }
 
+Matrix &Matrix::operator=(const Matrix &other)
+{
+  this->data = other.data;
+  this->nRows = other.nRows;
+  this->nCols = other.nCols;
+
+  return *this;
+}
+
 Matrix &Matrix::operator+=(const Matrix &other)
 {
   if (!Matrix::isSameDimension(*this, other))
@@ -221,7 +221,6 @@ Matrix &Matrix::operator+=(const Matrix &other)
     throw std::invalid_argument("Matrices must be equal dimension for addition");
   };
 
-  std::vector<double> sumData(this->data.size());
   for (size_t i = 0; i < this->data.size(); ++i)
   {
     this->data[i] = this->data[i] + other.data[i];
