@@ -73,6 +73,64 @@ TEST(Matrix, ThrowOnCreateInvalidMatrix) { EXPECT_THROW(Matrix m({{1, 2}, {3, 4,
 TEST(Matrix, ThrowsOnCreateInvalidMatrix1D) { EXPECT_THROW(Matrix m({1, 2, 3, 4, 5}, 3, 2), std::invalid_argument); }
 
 // getters
+TEST(Matrix, GetNRows)
+{
+  Matrix m({{1, 2}, {3, 4}, {5, 6}});
+
+  EXPECT_EQ(m.getNRows(), 3);
+}
+
+TEST(Matrix, GetNCols)
+{
+  Matrix m({{1, 2}, {3, 4}, {5, 6}});
+
+  EXPECT_EQ(m.getNCols(), 2);
+}
+
+TEST(Matrix, GetRows)
+{
+  Matrix m({{1, 2}, {3, 4}, {5, 6}});
+
+  const std::vector<Vector> expectedRows = {
+      Vector({1, 2}),
+      Vector({3, 4}),
+      Vector({5, 6}),
+  };
+  const auto actualRows = m.getRows();
+
+  EXPECT_EQ(m.getNRows(), expectedRows.size());
+  for (size_t i = 0; i < expectedRows.size(); ++i)
+  {
+    EXPECT_EQ(*actualRows[i], expectedRows[i]);
+  }
+}
+
+TEST(Matrix, GetCols)
+{
+  Matrix m({{1, 2}, {3, 4}, {5, 6}});
+
+  const std::vector<Vector> expectedCols = {
+      Vector({1, 3, 5}),
+      Vector({2, 4, 6}),
+  };
+  const auto actualCols = m.getCols();
+
+  EXPECT_EQ(m.getNCols(), expectedCols.size());
+  for (size_t i = 0; i < expectedCols.size(); ++i)
+  {
+    EXPECT_EQ(*actualCols[i], expectedCols[i]);
+  }
+}
+
+TEST(Matrix, GetData)
+{
+  Matrix m({{1, 2}, {3, 4}, {5, 6}});
+
+  std::vector<double> expectedData{1, 2, 3, 4, 5, 6};
+
+  EXPECT_EQ(m.getData(), expectedData);
+}
+
 TEST(Matrix, GetDiagonal)
 {
   Matrix m({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
