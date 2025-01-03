@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <iostream>
 #include <kmath/Matrix/Matrix.hpp>
+#include <kmath/Matrix/Vector.hpp>
+#include <memory>
 #include <span>
 #include <stdexcept>
 #include <vector>
@@ -10,7 +12,7 @@
 #include "config.hpp"
 
 // constructors
-Matrix::Matrix(const Vector2D &rows) : nRows(rows.size()), nCols(rows.begin()->size())
+Matrix::Matrix(const std::vector<std::vector<double>> &rows) : nRows(rows.size()), nCols(rows.begin()->size())
 {
   if (!rows.size())
   {
@@ -46,31 +48,35 @@ Matrix::Matrix(const std::vector<double> &eles, const size_t rows, const size_t 
 size_t Matrix::getNRows() const { return nRows; }
 size_t Matrix::getNCols() const { return nCols; }
 
-Vector2D Matrix::getRows() const
+std::vector<std::shared_ptr<Vector>> Matrix::getRows() const
 {
-  Vector2D rows(nRows, std::vector<double>(nCols));
+  std::vector<std::shared_ptr<Vector>> rows(nRows);
 
   for (size_t i = 0; i < nRows; ++i)
   {
+    auto row = std::make_shared<Vector>(std::vector<double>(nCols, 0.0));
     for (size_t j = 0; j < nCols; ++j)
     {
-      rows[i][j] = data[j + nCols * i];
+      row->data[j] = data[j + nCols * i];
     }
+    rows[i] = row;
   }
 
   return rows;
 }
 
-Vector2D Matrix::getCols() const
+std::vector<std::shared_ptr<Vector>> Matrix::getCols() const
 {
-  Vector2D cols(nCols, std::vector<double>(nRows));
+  std::vector<std::shared_ptr<Vector>> cols(nCols);
 
   for (size_t i = 0; i < nCols; ++i)
   {
+    auto col = std::make_shared<Vector>(std::vector<double>(nRows, 0.0));
     for (size_t j = 0; j < nRows; ++j)
     {
-      cols[i][j] = data[i + j * nCols];
+      col->data[j] = data[i + j * nCols];
     }
+    cols[i] = col;
   }
 
   return cols;

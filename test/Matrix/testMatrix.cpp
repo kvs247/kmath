@@ -1,52 +1,69 @@
 #include <gtest/gtest.h>
 #include <kmath/Matrix/Matrix.hpp>
+#include <kmath/Matrix/Vector.hpp>
 #include <stdexcept>
+#include <vector>
 
 // constructors
 TEST(Matrix, CanCreateMatrixFromRows)
 {
   Matrix m({{1, 2}, {3, 4}, {5, 6}});
 
-  size_t expectedNRows = 3;
-  size_t expectedNCols = 2;
-  Vector2D expectedRows = {
-      {1, 2},
-      {3, 4},
-      {5, 6},
+  std::vector<Vector> expectedRows = {
+      Vector({1, 2}),
+      Vector({3, 4}),
+      Vector({5, 6}),
   };
-  Vector2D expectedCols = {
-      {1, 3, 5},
-      {2, 4, 6},
+  std::vector<Vector> expectedCols = {
+      Vector({1, 3, 5}),
+      Vector({2, 4, 6}),
   };
 
-  EXPECT_EQ(m.getNRows(), expectedNRows);
-  EXPECT_EQ(m.getNCols(), expectedNCols);
+  auto actualRows = m.getRows();
+  auto actualCols = m.getCols();
 
-  EXPECT_EQ(m.getRows(), expectedRows);
-  EXPECT_EQ(m.getCols(), expectedCols);
+  EXPECT_EQ(m.getNRows(), expectedRows.size());
+  for (size_t i = 0; i < expectedRows.size(); ++i)
+  {
+    EXPECT_EQ(*actualRows[i], expectedRows[i]);
+  }
+
+  EXPECT_EQ(m.getNCols(), expectedCols.size());
+  for (size_t i = 0; i < expectedCols.size(); ++i)
+  {
+    EXPECT_EQ(*actualCols[i], expectedCols[i]);
+  }
 }
 
 TEST(Matrix, CanCreateMatrixFromDataAndShape)
 {
   Matrix m({1, 2, 3, 4, 5, 6}, 3, 2);
 
-  size_t expectedNRows = 3;
-  size_t expectedNCols = 2;
-  Vector2D expectedRows = {
-      {1, 2},
-      {3, 4},
-      {5, 6},
-  };
-  Vector2D expectedCols = {
-      {1, 3, 5},
-      {2, 4, 6},
+  std::vector<Vector> expectedRows = {
+      Vector({1, 2}),
+      Vector({3, 4}),
+      Vector({5, 6}),
   };
 
-  EXPECT_EQ(m.getNRows(), expectedNRows);
-  EXPECT_EQ(m.getNCols(), expectedNCols);
+  std::vector<Vector> expectedCols = {
+      Vector({1, 3, 5}),
+      Vector({2, 4, 6}),
+  };
 
-  EXPECT_EQ(m.getRows(), expectedRows);
-  EXPECT_EQ(m.getCols(), expectedCols);
+  auto actualRows = m.getRows();
+  auto actualCols = m.getCols();
+
+  EXPECT_EQ(m.getNRows(), expectedRows.size());
+  for (size_t i = 0; i < expectedRows.size(); ++i)
+  {
+    EXPECT_EQ(*actualRows[i], expectedRows[i]);
+  }
+
+  EXPECT_EQ(m.getNCols(), expectedCols.size());
+  for (size_t i = 0; i < expectedCols.size(); ++i)
+  {
+    EXPECT_EQ(*actualCols[i], expectedCols[i]);
+  }
 }
 
 TEST(Matrix, ThrowOnCreateInvalidMatrix) { EXPECT_THROW(Matrix m({{1, 2}, {3, 4, 5}}), std::invalid_argument); }

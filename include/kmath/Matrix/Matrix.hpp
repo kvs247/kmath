@@ -2,24 +2,25 @@
 
 #include <initializer_list>
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 #include <stdlib.h>
 #include <vector>
 
-using Vector2D = std::vector<std::vector<double>>;
+class Vector;
 
 class Matrix
 {
 public:
   Matrix() = delete;
   Matrix(const Matrix &) = default;
-  Matrix(const Vector2D &);
+  Matrix(const std::vector<std::vector<double>> &);
   Matrix(const std::vector<double> &eles, const size_t rows, const size_t cols);
 
   size_t getNRows() const;
   size_t getNCols() const;
-  Vector2D getRows() const;
-  Vector2D getCols() const;
+  std::vector<std::shared_ptr<Vector>> getRows() const;
+  std::vector<std::shared_ptr<Vector>> getCols() const;
   std::vector<double> getData() const;
   std::vector<double> getDiagonal() const;
 
