@@ -14,7 +14,8 @@ class Matrix
 public:
   Matrix() = delete;
   Matrix(const Matrix &) = default;
-  Matrix(const std::vector<std::vector<double>> &);
+  Matrix(const std::vector<Vector> &cols);
+  Matrix(const std::vector<std::vector<double>> &rows);
   Matrix(const std::vector<double> &eles, const size_t rows, const size_t cols);
 
   size_t getNRows() const;

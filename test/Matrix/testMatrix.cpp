@@ -5,34 +5,36 @@
 #include <vector>
 
 // constructors
+TEST(Matrix, CanCreateMatrixFromCols)
+{
+  std::vector<Vector> cols = {
+      Vector({1, 2}),
+      Vector({4, 5}),
+      Vector({7, 8}),
+  };
+
+  const size_t expectedNCols = 3;
+  const size_t expectedNRows = 2;
+  const std::vector<double> expectedData{1, 4, 7, 2, 5, 8};
+
+  const auto m = Matrix(cols);
+
+  EXPECT_EQ(m.getNRows(), expectedNRows);
+  EXPECT_EQ(m.getNCols(), expectedNCols);
+  EXPECT_EQ(m.getData(), expectedData);
+}
+
 TEST(Matrix, CanCreateMatrixFromRows)
 {
   Matrix m({{1, 2}, {3, 4}, {5, 6}});
 
-  std::vector<Vector> expectedRows = {
-      Vector({1, 2}),
-      Vector({3, 4}),
-      Vector({5, 6}),
-  };
-  std::vector<Vector> expectedCols = {
-      Vector({1, 3, 5}),
-      Vector({2, 4, 6}),
-  };
+  const size_t expectedNCols = 2;
+  const size_t expectedNRows = 3;
+  const std::vector<double> expectedData{1, 2, 3, 4, 5, 6};
 
-  auto actualRows = m.getRows();
-  auto actualCols = m.getCols();
-
-  EXPECT_EQ(m.getNRows(), expectedRows.size());
-  for (size_t i = 0; i < expectedRows.size(); ++i)
-  {
-    EXPECT_EQ(*actualRows[i], expectedRows[i]);
-  }
-
-  EXPECT_EQ(m.getNCols(), expectedCols.size());
-  for (size_t i = 0; i < expectedCols.size(); ++i)
-  {
-    EXPECT_EQ(*actualCols[i], expectedCols[i]);
-  }
+  EXPECT_EQ(m.getNRows(), expectedNRows);
+  EXPECT_EQ(m.getNCols(), expectedNCols);
+  EXPECT_EQ(m.getData(), expectedData);
 }
 
 TEST(Matrix, CanCreateMatrixFromDataAndShape)

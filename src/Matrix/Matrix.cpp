@@ -12,6 +12,29 @@
 #include "config.hpp"
 
 // constructors
+Matrix::Matrix(const std::vector<Vector> &cols) : nRows(cols.begin()->size()), nCols(cols.size())
+{
+  if (!cols.size())
+  {
+    throw std::invalid_argument("Matrix cannot be empty");
+  }
+
+  data.resize(nRows * nCols);
+
+  for (size_t i = 0; i < nCols; ++i)
+  {
+    const auto col = cols[i];
+    if (col.size() != nRows)
+    {
+      throw std::invalid_argument("Matrix columns must have the same length");
+    }
+    for (size_t j = 0; j < nRows; ++j)
+    {
+      data[j * nCols + i] = cols[i].at(j);
+    }
+  }
+};
+
 Matrix::Matrix(const std::vector<std::vector<double>> &rows) : nRows(rows.size()), nCols(rows.begin()->size())
 {
   if (!rows.size())
