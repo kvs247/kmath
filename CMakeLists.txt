@@ -5,6 +5,7 @@ add_library(kmath
   src/Ops/Ops.cpp
   src/Matrix/Matrix.cpp
   src/Matrix/Vector.cpp
+  src/Matrix/QR/GramSchmidtQR.cpp
 )
 
 target_include_directories(kmath

@@ -38,7 +38,18 @@ target_link_libraries(vector_test
   gtest_main
 )
 
+add_executable(gram_schmidt_qr_test
+  test/Matrix/QR/testGramSchmidtQR.cpp
+)
+target_link_libraries(gram_schmidt_qr_test
+  PRIVATE
+  kmath
+  gtest
+  gtest_main
+)
+
 include(GoogleTest)
 gtest_discover_tests(ops_test)
 gtest_discover_tests(matrix_test)
 gtest_discover_tests(vector_test)
+gtest_discover_tests(gram_schmidt_qr_test)
