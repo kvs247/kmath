@@ -16,7 +16,16 @@ TEST(Vector, CanCreateVector)
   EXPECT_EQ(v.getNCols(), expectedNCols);
 }
 
-TEST(Vector, AtWithValidInput)
+TEST(Vector, Size)
+{
+  Vector v1({1.0, 2.0, 3.0});
+  Vector v2({0.0});
+
+  EXPECT_EQ(v1.size(), 3);
+  EXPECT_EQ(v2.size(), 1);
+}
+
+TEST(Vector, At)
 {
   Vector v({1.0, 2.0, 3.0});
 
