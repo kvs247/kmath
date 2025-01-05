@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 project(kmath)
 
 add_library(kmath
+  src/Utils/Utils.cpp
   src/Ops/Ops.cpp
   src/Matrix/Matrix.cpp
   src/Matrix/Vector.cpp

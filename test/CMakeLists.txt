@@ -8,6 +8,16 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+add_executable(utils_test
+  test/Utils/testUtils.cpp
+)
+target_link_libraries(utils_test
+  PRIVATE
+  kmath
+  gtest
+  gtest_main
+)
+
 add_executable(ops_test
   test/Ops/testOps.cpp
 )
@@ -59,6 +69,7 @@ target_link_libraries(gram_schmidt_qr_test
 )
 
 include(GoogleTest)
+gtest_discover_tests(utils_test)
 gtest_discover_tests(ops_test)
 gtest_discover_tests(matrix_test)
 gtest_discover_tests(vector_test)
