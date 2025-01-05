@@ -1,6 +1,7 @@
 #include <kmath/Matrix/Matrix.hpp>
 #include <kmath/Matrix/QR/GramSchmidtQR.hpp>
 #include <kmath/Matrix/Vector.hpp>
+#include <kmath/Utils.hpp>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -49,9 +50,9 @@ GramSchmidtQR::computeR(const std::vector<Vector> &basis, const std::vector<std:
       }
 
       auto val = basis[i].innerProduct(*colPtrs[j]);
-      if (std::abs(val) < 1e-10)
+      if (kmath::floatEqual(val, 0.0))
       {
-        val = 0;
+        val = 0.0;
       }
       rData[i * n + j] = val;
     }

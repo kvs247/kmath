@@ -4,12 +4,11 @@
 #include <iostream>
 #include <kmath/Matrix/Matrix.hpp>
 #include <kmath/Matrix/Vector.hpp>
+#include <kmath/Utils.hpp>
 #include <memory>
 #include <span>
 #include <stdexcept>
 #include <vector>
-
-#include "config.hpp"
 
 // constructors
 Matrix::Matrix(const std::vector<Vector> &cols) : nRows(cols.begin()->size()), nCols(cols.size())
@@ -221,8 +220,7 @@ bool Matrix::operator==(const Matrix &other) const
 
   for (size_t i = 0; i < this->data.size(); ++i)
   {
-    const double diff = this->data[i] - other.data[i];
-    if (std::abs(diff) > config::comparisonMaxDiff)
+    if (!kmath::floatEqual(this->data[i], other.data[i]))
     {
       return false;
     }

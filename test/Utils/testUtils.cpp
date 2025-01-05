@@ -11,4 +11,5 @@ TEST(Utils, FloatEquality)
   EXPECT_FALSE(kmath::floatEqual(1.0, 0.9995));
   EXPECT_FALSE(kmath::floatEqual(987654321.123456789, 9.8));
   EXPECT_TRUE(kmath::floatEqual(0.0, 0.0000000000000001));
+  EXPECT_FALSE(kmath::floatEqual(0.0, 3.0));
 }

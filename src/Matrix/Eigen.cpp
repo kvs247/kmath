@@ -1,6 +1,7 @@
 #include <kmath/Matrix/Eigen.hpp>
 #include <kmath/Matrix/QR/GramSchmidtQR.hpp>
 #include <kmath/Matrix/Vector.hpp>
+#include <kmath/Utils.hpp>
 #include <map>
 #include <vector>
 
@@ -32,12 +33,11 @@ std::map<double, std::vector<Vector>> Eigen::compute(Matrix m)
     throw std::runtime_error("orderedEigenVals and orderedEigenVectos have unequal size");
   }
 
-  const double tol = 1e-15;
   for (size_t i = 1; i < orderedEigenVals.size(); ++i)
   {
     for (size_t j = 0; j < i; ++j)
     {
-      if (std::abs(orderedEigenVals[i] - orderedEigenVals[j]) <= tol)
+      if (kmath::floatEqual(orderedEigenVals[i], orderedEigenVals[j]))
       {
         orderedEigenVals[i] = orderedEigenVals[j];
         break;
