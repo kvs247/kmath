@@ -10,6 +10,12 @@ bool floatEqual(const double a, const double b, const double relTol)
     return true;
   }
 
+  if (a == 0.0 || b == 0.0)
+  {
+    const auto nonZero = (a == 0.0) ? a : b;
+    return nonZero < relTol;
+  }
+
   return kmath::abs(a - b) < relTol * kmath::min(kmath::abs(a), kmath::abs(b));
 }
 } // namespace kmath
