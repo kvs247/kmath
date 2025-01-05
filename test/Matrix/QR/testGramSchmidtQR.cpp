@@ -17,18 +17,6 @@ TEST(GramSchmidtQR, Snapshot)
   const auto q = res.first;
   const auto r = res.second;
 
-  std::cout << "EXPECTED Q\n";
-  expectedQ.print();
-
-  std::cout << "ACTUAL Q\n";
-  q.print();
-
-  std::cout << "EXPECTED R\n";
-  expectedR.print();
-
-  std::cout << "ACTUAL R\n";
-  r.print();
-
   EXPECT_EQ(q, expectedQ);
   EXPECT_EQ(r, expectedR);
 }

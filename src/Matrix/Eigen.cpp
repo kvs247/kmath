@@ -24,21 +24,7 @@ std::map<double, std::vector<Vector>> Eigen::compute(Matrix m)
     u *= q;
   }
 
-  auto newData = m.getData();
-  auto lastMData = lastM.getData();
-  for (size_t i = 0; i < newData.size(); ++i)
-  {
-    if (lastMData[i] == 0)
-    {
-      continue;
-    }
-    newData[i] /= lastMData[i];
-  }
-  const Matrix lastTwoRatio(newData, m.getNRows(), m.getNCols());
-  std::cout << "===\n";
-  lastTwoRatio.print();
-
-  const auto orderedEigenVals = lastTwoRatio.getDiagonal();
+  const auto orderedEigenVals = m.getDiagonal();
   const auto orderedEigenVectors = u.getCols();
 
   if (orderedEigenVals.size() != orderedEigenVectors.size())
