@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <kmath/Matrix/Eigen.hpp>
+#include <kmath/Ops.hpp>
 
 TEST(Eigen, Snapshot)
 {
@@ -36,5 +37,26 @@ TEST(Eigen, Snapshot)
       }
       std::cout << "]\n";
     }
+  }
+}
+
+TEST(Eigen, GroupsEigenValuesWithinTolerance)
+{
+  Matrix m({
+      {2, -1, -1},
+      {-1, 2, -1},
+      {-1, -1, 2},
+  });
+
+  const std::vector<double> expected = {0.0, 3.0};
+
+  const auto result = Eigen::compute(m);
+
+  EXPECT_EQ(result.size(), expected.size());
+
+  size_t i = 0;
+  for (const auto &eValVec : result)
+  {
+    EXPECT_TRUE(kmath::abs(eValVec.first - expected[i++]) < 1e-10);
   }
 }

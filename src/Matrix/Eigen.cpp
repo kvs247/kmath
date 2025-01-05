@@ -24,12 +24,25 @@ std::map<double, std::vector<Vector>> Eigen::compute(Matrix m)
     u *= q;
   }
 
-  const auto orderedEigenVals = m.getDiagonal();
+  auto orderedEigenVals = m.getDiagonal();
   const auto orderedEigenVectors = u.getCols();
 
   if (orderedEigenVals.size() != orderedEigenVectors.size())
   {
     throw std::runtime_error("orderedEigenVals and orderedEigenVectos have unequal size");
+  }
+
+  const double tol = 1e-15;
+  for (size_t i = 1; i < orderedEigenVals.size(); ++i)
+  {
+    for (size_t j = 0; j < i; ++j)
+    {
+      if (std::abs(orderedEigenVals[i] - orderedEigenVals[j]) <= tol)
+      {
+        orderedEigenVals[i] = orderedEigenVals[j];
+        break;
+      }
+    }
   }
 
   std::map<double, std::vector<Vector>> res;
