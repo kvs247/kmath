@@ -9,6 +9,18 @@ TEST(Ops, Abs)
   EXPECT_EQ(kmath::abs(-2), 2);
 }
 
+TEST(Ops, Max)
+{
+  EXPECT_EQ(kmath::max(3.0, 4.0), 4.0);
+  EXPECT_EQ(kmath::max(1.0, 1.0), 1.0);
+}
+
+TEST(Ops, Min)
+{
+  EXPECT_EQ(kmath::min(3.0, 4.0), 3.0);
+  EXPECT_EQ(kmath::min(1.0, 1.0), 1.0);
+}
+
 TEST(Ops, SqrtNonnegative)
 {
   EXPECT_EQ(kmath::sqrt(0), 0);

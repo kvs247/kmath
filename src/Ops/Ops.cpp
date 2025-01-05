@@ -1,9 +1,14 @@
 #include <kmath/Ops.hpp>
+#include <kmath/Utils.hpp>
 #include <stdexcept>
 
 namespace kmath
 {
 double abs(double x) { return (x > 0) ? x : -x; }
+
+double max(double x, double y) { return (x > y) ? x : y; }
+
+double min(double x, double y) { return (x > y) ? y : x; }
 
 double sqrt(double x)
 {
