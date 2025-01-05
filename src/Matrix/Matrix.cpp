@@ -142,7 +142,9 @@ Matrix Matrix::makeIdentityMatrix(const size_t n)
 // public methods
 void Matrix::print(std::ostream &os) const
 {
-  os << std::fixed << std::setprecision(3);
+  const auto origFlags(os.flags());
+  const auto origPrecision = os.precision();
+  os << std::fixed << std::setprecision(2);
 
   for (size_t i = 0; i < data.size(); ++i)
   {
@@ -158,6 +160,9 @@ void Matrix::print(std::ostream &os) const
       os << " |\n";
     }
   }
+
+  os.flags(origFlags);
+  os.precision(origPrecision);
 }
 
 double Matrix::at(size_t i, size_t j) const
