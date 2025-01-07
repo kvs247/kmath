@@ -2,6 +2,8 @@
 
 namespace kmath
 {
+double reduceRad(double);
+double reduceDeg(double);
 double degToRad(double);
 double radToDeg(double);
 

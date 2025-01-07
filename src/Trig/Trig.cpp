@@ -1,14 +1,14 @@
 #include <iostream>
 #include <kmath/Constants.hpp>
+#include <kmath/Ops.hpp>
 #include <kmath/Trig.hpp>
+#include <stdexcept>
 
 namespace kmath
 {
-double degToRad(double x)
+// return radians in range (-π, π]
+double reduceRad(double x)
 {
-
-  x *= kmath::pi / 180;
-
   while (x > kmath::pi)
   {
     x -= 2 * kmath::pi;
@@ -22,31 +22,107 @@ double degToRad(double x)
   return x;
 }
 
-double radToDeg(double x)
+// return degrees in range (-180, 180]
+double reduceDeg(double x)
 {
-  x *= 180.0 / kmath::pi;
-
-  while (x > 180.0)
+  while (x > 180)
   {
-    x -= 360.0;
+    x -= 360;
   }
 
-  while (x <= -180.0)
+  while (x <= -180)
   {
-    x += 360.0;
+    x += 360;
   }
 
   return x;
 }
 
-double cos(double x)
+double degToRad(double x)
 {
-  const double xx = x * x;
-  const double res = 1 - xx / 2 + xx * xx / 12 - xx * xx * xx / 720;
-  std::cout << res << "\n";
-  return res;
+  x *= kmath::pi / 180;
+
+  return reduceRad(x);
 }
 
-double sin(double x) {}
-double tan(double x) {}
+double radToDeg(double x)
+{
+  x *= 180.0 / kmath::pi;
+
+  return reduceDeg(x);
+}
+
+double cos(double x)
+{
+  static const double tol = 1e-15;
+
+  x = reduceRad(x);
+
+  double next;
+  double res = 1;
+  double xx = x * x;
+
+  double lastNum = 1;
+  double lastDen = 1;
+  int lastFact = 0;
+  int sign = 1;
+
+  while (true)
+  {
+    if (lastFact > 100)
+    {
+      throw std::runtime_error("Cosine Taylor series did not converge after 50 terms");
+    }
+
+    lastFact += 2;
+    lastNum *= xx;
+    lastDen *= (lastFact * (lastFact - 1));
+    sign *= -1;
+
+    next = sign * lastNum / lastDen;
+    res += next;
+
+    if (kmath::abs(next) < tol)
+    {
+      return res;
+    }
+  }
+}
+
+double sin(double x)
+{
+  static const double tol = 1e-15;
+
+  x = reduceRad(x);
+
+  double next;
+  double res = x;
+  double xx = x * x;
+
+  double lastNum = x;
+  double lastDen = 1;
+  int lastFact = 1;
+  int sign = 1;
+
+  while (true)
+  {
+    if (lastFact > 100)
+    {
+      throw std::runtime_error("Cosine Taylor series did not converge after 50 terms");
+    }
+
+    lastFact += 2;
+    lastNum *= xx;
+    lastDen *= (lastFact * (lastFact - 1));
+    sign *= -1;
+
+    next = sign * lastNum / lastDen;
+    res += next;
+
+    if (kmath::abs(next) < tol)
+    {
+      return res;
+    }
+  }
+}
 } // namespace kmath

@@ -3,9 +3,25 @@
 #include <kmath/Ops.hpp>
 #include <kmath/Trig.hpp>
 #include <kmath/Utils.hpp>
+#include <stdexcept>
 
+static const double tol = kmath::DEFAULT_FLOAT_RELATIVE_TOLERANCE;
 static const double SQRT2 = kmath::sqrt(2);
 static const double SQRT3 = kmath::sqrt(3);
+
+TEST(Trig, ReduceRadians)
+{
+  EXPECT_EQ(kmath::reduceRad(kmath::pi), kmath::pi);
+  EXPECT_EQ(kmath::reduceRad(3 * kmath::pi / 2), -kmath::pi / 2);
+  EXPECT_EQ(kmath::reduceRad(-kmath::pi), kmath::pi);
+}
+
+TEST(Trig, ReduceDegrees)
+{
+  EXPECT_EQ(kmath::reduceDeg(180), 180);
+  EXPECT_EQ(kmath::reduceDeg(270), -90);
+  EXPECT_EQ(kmath::reduceDeg(-180), 180);
+}
 
 TEST(Trig, DegreesToRadians)
 {
@@ -25,22 +41,22 @@ TEST(Trig, RadiansToDegree)
 
 TEST(Trig, Cosine)
 {
-  EXPECT_TRUE(kmath::floatEqual(kmath::cos(0.0), 1.0));
-  EXPECT_TRUE(kmath::floatEqual(kmath::cos(kmath::pi / 6), SQRT3 / 2));
-  EXPECT_TRUE(kmath::floatEqual(kmath::cos(kmath::pi / 4), SQRT2 / 2));
-  EXPECT_TRUE(kmath::floatEqual(kmath::cos(kmath::pi / 3), 1.0 / 2));
-  EXPECT_TRUE(kmath::floatEqual(kmath::cos(kmath::pi / 2), 0.0));
-  EXPECT_TRUE(kmath::floatEqual(kmath::cos(kmath::pi), -1.0));
-  EXPECT_EQ(kmath::cos(kmath::pi - kmath::pi / 4), kmath::cos(kmath::pi + kmath::pi / 4));
+  EXPECT_NEAR(kmath::cos(0.0), 1.0, tol);
+  EXPECT_NEAR(kmath::cos(kmath::pi / 6), SQRT3 / 2, tol);
+  EXPECT_NEAR(kmath::cos(kmath::pi / 4), SQRT2 / 2, tol);
+  EXPECT_NEAR(kmath::cos(kmath::pi / 3), 1.0 / 2, tol);
+  EXPECT_NEAR(kmath::cos(kmath::pi / 2), 0.0, tol);
+  EXPECT_NEAR(kmath::cos(kmath::pi), -1.0, tol);
+  EXPECT_NEAR(kmath::cos(kmath::pi - kmath::pi / 4), kmath::cos(kmath::pi + kmath::pi / 4), tol);
 }
 
-// TEST(Trig, Sine)
-// {
-//   EXPECT_TRUE(kmath::floatEqual(kmath::sin(0.0), 0.0));
-//   EXPECT_TRUE(kmath::floatEqual(kmath::sin(30.0), 1.0 / 2));
-//   EXPECT_TRUE(kmath::floatEqual(kmath::sin(45.0), SQRT2 / 2));
-//   EXPECT_TRUE(kmath::floatEqual(kmath::sin(60.0), SQRT3 / 2));
-//   EXPECT_TRUE(kmath::floatEqual(kmath::sin(90.0), 1.0));
-//   EXPECT_TRUE(kmath::floatEqual(kmath::sin(270.0), -1.0));
-//   EXPECT_EQ(kmath::cos(135.0), kmath::sin(225.0));
-// }
+TEST(Trig, Sine)
+{
+  EXPECT_NEAR(kmath::sin(0.0), 0.0, tol);
+  EXPECT_NEAR(kmath::sin(kmath::pi / 6), 1.0 / 2, tol);
+  EXPECT_NEAR(kmath::sin(kmath::pi / 4), SQRT2 / 2, tol);
+  EXPECT_NEAR(kmath::sin(kmath::pi / 3), SQRT3 / 2, tol);
+  EXPECT_NEAR(kmath::sin(kmath::pi / 2), 1.0, tol);
+  EXPECT_NEAR(kmath::sin(3 * kmath::pi / 2), -1.0, tol);
+  EXPECT_NEAR(kmath::sin(kmath::pi / 2 - kmath::pi / 4), kmath::sin(kmath::pi / 2 + kmath::pi / 4), tol);
+}
