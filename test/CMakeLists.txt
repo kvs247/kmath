@@ -28,6 +28,16 @@ target_link_libraries(ops_test
   gtest_main
 )
 
+add_executable(trig_test
+  test/Trig/testTrig.cpp
+)
+target_link_libraries(trig_test
+  PRIVATE
+  kmath
+  gtest
+  gtest_main
+)
+
 add_executable(matrix_test
   test/Matrix/testMatrix.cpp
 )

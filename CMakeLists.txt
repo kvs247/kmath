@@ -4,6 +4,7 @@ project(kmath)
 add_library(kmath
   src/Utils/Utils.cpp
   src/Ops/Ops.cpp
+  src/Trig/Trig.cpp
   src/Matrix/Matrix.cpp
   src/Matrix/Vector.cpp
   src/Matrix/Eigen.cpp
