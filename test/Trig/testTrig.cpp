@@ -4,6 +4,7 @@
 #include <kmath/Trig.hpp>
 #include <kmath/Utils.hpp>
 #include <stdexcept>
+#include <utility>
 
 static const double tol = kmath::DEFAULT_FLOAT_RELATIVE_TOLERANCE;
 static const double SQRT2 = kmath::sqrt(2);
@@ -37,6 +38,28 @@ TEST(Trig, RadiansToDegree)
   EXPECT_EQ(kmath::radToDeg(kmath::pi / 4), 45.0);
   EXPECT_EQ(kmath::radToDeg(7 * kmath::pi / 4), -45.0);
   EXPECT_EQ(kmath::radToDeg(5 * kmath::pi / 2), 90.0);
+}
+
+TEST(Trig, PolarToCartesian)
+{
+  EXPECT_NEAR(kmath::polarToCart(0.0, 0.0).first, 0.0, tol);
+  EXPECT_NEAR(kmath::polarToCart(0.0, 0.0).second, 0.0, tol);
+
+  const std::pair<double, double> cartPoint{-3.0 * SQRT3 / 2, 3.0 / 2};
+  const std::pair<double, double> polarPoint{3.0, 5.0 * kmath::pi / 6};
+  EXPECT_NEAR(kmath::polarToCart(polarPoint.first, polarPoint.second).first, cartPoint.first, tol);
+  EXPECT_NEAR(kmath::polarToCart(polarPoint.first, polarPoint.second).second, cartPoint.second, tol);
+}
+
+TEST(Trig, cartesianToPolar)
+{
+  EXPECT_NEAR(kmath::cartToPolar(0.0, 0.0).first, 0.0, tol);
+  EXPECT_NEAR(kmath::cartToPolar(0.0, 0.0).second, 0.0, tol);
+
+  const std::pair<double, double> cartPoint{-3.0 * SQRT3 / 2, 3.0 / 2};
+  const std::pair<double, double> polarPoint{3.0, 5.0 * kmath::pi / 6};
+  EXPECT_NEAR(kmath::cartToPolar(cartPoint.first, cartPoint.second).first, polarPoint.first, tol);
+  EXPECT_NEAR(kmath::cartToPolar(cartPoint.first, cartPoint.second).second, polarPoint.second, tol);
 }
 
 TEST(Trig, Cosine)

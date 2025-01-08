@@ -1,3 +1,4 @@
+#include <cmath> // no!!!
 #include <iostream>
 #include <kmath/Constants.hpp>
 #include <kmath/Ops.hpp>
@@ -50,6 +51,19 @@ double radToDeg(double x)
   x *= 180.0 / kmath::pi;
 
   return reduceDeg(x);
+}
+
+std::pair<double, double> polarToCart(double r, double t) { return {r * cos(t), r * sin(t)}; }
+
+std::pair<double, double> cartToPolar(double x, double y)
+{
+  // use own atan() when implemented
+  double t = std::atan2(y, x);
+
+  // use euclidnorm()/hypot() when implemented
+  double r = kmath::sqrt(x * x + y * y);
+
+  return {r, t};
 }
 
 double cos(double x)
