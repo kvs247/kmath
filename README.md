@@ -8,6 +8,8 @@ A personal math library.
 
 - `abs`: absolute value of a real number
 - `sqrt`: sqaure root of non-negative real number
+- `max`: maximum value between two floats
+- `min`: minimum value between two floats
 
 ### Trig Operations
 
