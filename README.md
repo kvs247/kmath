@@ -9,6 +9,17 @@ A personal math library.
 - `abs`: absolute value of a real number
 - `sqrt`: sqaure root of non-negative real number
 
+### Trig Operations
+
+- `reduceRad`: convert radians to the range (-π, π]
+- `reduceDeg`: convert degrees to the range (-180, 180]
+- `degToRad`: convert degrees to radians in range (-π, π]
+- `radToDeg`: convert radians to degrees in range (-180, 180]
+- `polarToCart`: conver polar (radius, angle) coordinate to cartesian (x, y) coordinate
+- `cartToPolar`: convert cartesian (x, y) to polar (radius, angle) coordinate
+- `sin`
+- `cos`
+
 ### Matrix Operations
 
 - Comprehensive `Matrix` class
